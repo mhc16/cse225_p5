@@ -57,16 +57,17 @@ func InitTest(cfgPath, blockStorePort string) TestInfo {
 func EndTest(test TestInfo) {
 	test.CancelFunc()
 
-	for _, conn := range test.Conns {
-		conn.Close()
-	}
-
 	for _, server := range test.Procs {
 		_ = server.Process.Kill()
 	}
 
 	exec.Command("pkill SurfstoreRaftServerExec*")
 
+	for _, conn := range test.Conns {
+		conn.Close()
+	}
+
+	// saw that sometime a test would fail right away saying "connection already in use"
 	time.Sleep(100 * time.Millisecond)
 }
 

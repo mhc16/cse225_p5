@@ -245,8 +245,8 @@ func KillSurfServers(servers []*exec.Cmd) {
 	exec.Command("pkill SurfstoreServerExec*")
 }
 
-func SyncClient(metaAddr, baseDir string, blockSize int, cfg string) error {
-	clientCmd := exec.Command("_bin/SurfstoreClientExec", "-d", "-f", cfg, baseDir, strconv.Itoa(blockSize))
+func SyncClient(metaAddr, baseDir string, blockSize int) error {
+	clientCmd := exec.Command("_bin/SurfstoreClientExec", "-d", "-f", "config_files/3nodes.txt", baseDir, strconv.Itoa(blockSize))
 	clientCmd.Stderr = os.Stderr
 	clientCmd.Stdout = os.Stdout
 
